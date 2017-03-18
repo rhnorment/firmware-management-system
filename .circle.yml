@@ -1,0 +1,5 @@
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: pacific-savannah-28151

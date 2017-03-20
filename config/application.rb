@@ -27,5 +27,6 @@ module FirmwareManagementSystem
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use Rack::MethodOverride
   end
 end

@@ -40,7 +40,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Could't find firmware build/)
+        expect(response.body).to match(/Couldn't find FirmwareBuild/)
       end
     end
   end

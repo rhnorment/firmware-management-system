@@ -1,0 +1,2 @@
+class FirmwareBuildsController < ApplicationController
+end

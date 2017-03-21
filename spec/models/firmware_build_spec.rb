@@ -15,6 +15,22 @@ require 'rails_helper'
 
 RSpec.describe FirmwareBuild, type: :model do
 
+  let(:resource_class)  { 'FirmwareBuild' }
+  let(:all_resources)   { ActiveAdmin.application.namespaces[:admin].resources }
+  let(:resource)        { all_resources[resource_class] }
+
+  it 'has a valid resource name' do
+    expect(resource.resource_name).to eq('FirmwareBuild')
+  end
+
+  it 'should display in the menu bar' do
+    expect(resource).to be_include_in_menu
+  end
+
+  it 'has the default set of CRUD actions available to it' do
+    expect(resource.defined_actions).to include(:index, :show, :new, :create, :edit, :update, :destroy)
+  end
+
   it { should have_db_column(:id).of_type(:integer) }
   it { should have_db_column(:release_date).of_type(:date) }
   it { should have_db_column(:hardware_revision).of_type(:integer) }

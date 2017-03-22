@@ -32,10 +32,10 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'rack-timeout'
-  gem 'rails_12factor'
   gem 'pg'
   gem 'puma', '~> 3.0'
+  gem 'rack-timeout'
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

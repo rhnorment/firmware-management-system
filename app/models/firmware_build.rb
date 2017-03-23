@@ -19,4 +19,14 @@ class FirmwareBuild < ApplicationRecord
   validates         :software_revision, presence: true
   validates         :firmware_image,    presence: true
 
+  validate          :release_date_not_in_past,  on: :create
+
+  private
+
+  def release_date_not_in_past
+    if release_date.present? && release_date < Date.today
+      errors.add(:release_date, 'cannot be in past')
+    end
+  end
+
 end

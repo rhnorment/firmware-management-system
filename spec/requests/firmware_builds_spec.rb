@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'FirmwareBuilds API', type: :request do
 
-  let!(:firmware_builds)  { create_list(:firmware_build, 10) }
+  let!(:firmware_builds)  { create_list(:valid_firmware_build, 2) }
   let(:firmware_build_id) { firmware_builds.first.id }
 
   describe 'GET /firmware_builds' do
@@ -10,7 +10,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
 
     it 'returns firmware_builds' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json.size).to eq(2)
     end
 
     it 'returns status code 200' do

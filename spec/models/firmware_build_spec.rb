@@ -16,6 +16,16 @@ require 'rails_helper'
 
 RSpec.describe FirmwareBuild, type: :model do
 
+  it { should have_db_column(:id).of_type(:integer) }
+  it { should have_db_column(:release_date).of_type(:date) }
+  it { should have_db_column(:hardware_revision).of_type(:integer) }
+  it { should have_db_column(:software_revision).of_type(:integer) }
+  it { should have_db_column(:firmware_image_file_name).of_type(:string) }
+  it { should have_db_column(:firmware_image).of_type(:binary) }
+
+  it { should have_db_column(:created_at).of_type(:datetime) }
+  it { should have_db_column(:updated_at).of_type(:datetime) }
+
   let(:resource_class)  { 'FirmwareBuild' }
   let(:all_resources)   { ActiveAdmin.application.namespaces[:admin].resources }
   let(:resource)        { all_resources[resource_class] }
@@ -32,19 +42,19 @@ RSpec.describe FirmwareBuild, type: :model do
     expect(resource.defined_actions).to include(:index, :show, :new, :create, :edit, :update, :destroy)
   end
 
-  it { should have_db_column(:id).of_type(:integer) }
-  it { should have_db_column(:release_date).of_type(:date) }
-  it { should have_db_column(:hardware_revision).of_type(:integer) }
-  it { should have_db_column(:software_revision).of_type(:integer) }
-  it { should have_db_column(:firmware_image_file_name).of_type(:string) }
-  it { should have_db_column(:firmware_image).of_type(:binary) }
+  it 'has a valid factory' do
+    expect(build(:valid_firmware_build)).to be_valid
+  end
 
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+  it 'it stops an invalid factory' do
+    expect(build(:invalid_firmware_build)).to_not be_valid
+  end
 
   it { should validate_presence_of(:release_date) }
   it { should validate_presence_of(:hardware_revision) }
   it { should validate_presence_of(:software_revision) }
   it { should validate_presence_of(:firmware_image) }
+
+  it { should validate_uniqueness_of(:firmware_image_file_name).case_insensitive }
 
 end

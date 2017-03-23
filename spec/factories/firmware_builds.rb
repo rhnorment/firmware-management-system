@@ -15,10 +15,22 @@
 FactoryGirl.define do
 
   factory :firmware_build do
-    release_date        { Faker::Date.forward(3) }
     hardware_revision   { Faker::Number.decimal(2) }
     software_revision   { Faker::Number.decimal(2) }
-    firmware_image      { File.new("#{Rails.root}/spec/support/fixtures/profile.jpg") }
+
+    sequence(:firmware_image) { |n| File.new("#{Rails.root}/spec/support/fixtures/profile#{n}.jpg") }
+    firmware_image_file_name { File.basename firmware_image }
+
+    trait :valid_release_date do
+      release_date { Faker::Date.forward(3) }
+    end
+
+    trait :invalid_release_date do
+      release_date { Faker::Date.backward(3) }
+    end
+
+    factory :valid_firmware_build, traits: [:valid_release_date]
+    factory :invalid_firmware_build, traits: [:invalid_release_date]
   end
 
 end

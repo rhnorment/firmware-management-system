@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'FirmwareBuilds API', type: :request do
 
+  setup { host! 'api.example.com' }
+
   let!(:firmware_builds)  { create_list(:valid_firmware_build, 2) }
   let(:firmware_build_id) { firmware_builds.first.id }
 

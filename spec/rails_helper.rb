@@ -26,7 +26,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include RequestSpecHelper, type: :request
-  config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:deletion)

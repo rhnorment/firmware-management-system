@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'FirmwareBuilds API', type: :request do
 
-  setup { host! 'api.example.com' }
+  let!(:firmware_build_1) { FirmwareBuild.create(firmware_build_attributes) }
+  let!(:firmware_build_2) { FirmwareBuild.create(
+      firmware_build_attributes(firmware_image: File.new("#{Rails.root}/spec/support/fixtures/profile2.jpg"))) }
 
-  let!(:firmware_builds)  { create_list(:valid_firmware_build, 2) }
-  let(:firmware_build_id) { firmware_builds.first.id }
+  let(:firmware_build_id)       { FirmwareBuild.first.id }
 
   describe 'GET /firmware_builds' do
     before { get '/firmware_builds' }
@@ -21,6 +22,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
   end
 
   describe 'GET /firmware_builds/:id' do
+
     before { get "/firmware_builds/#{firmware_build_id}" }
 
     context 'when the record exists' do

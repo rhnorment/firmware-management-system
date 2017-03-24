@@ -43,11 +43,11 @@ RSpec.describe FirmwareBuild, type: :model do
   end
 
   it 'has a valid factory' do
-    expect(build(:valid_firmware_build)).to be_valid
+    expect(FirmwareBuild.new(firmware_build_attributes)).to be_valid
   end
 
   it 'it stops an invalid factory' do
-    expect(build(:invalid_firmware_build)).to_not be_valid
+    expect(FirmwareBuild.new(firmware_build_attributes(release_date: nil))).to_not be_valid
   end
 
   it { should validate_presence_of(:release_date) }

@@ -37,17 +37,9 @@ ActiveAdmin.register FirmwareBuild do
       f.input :hardware_revision
       f.input :software_revision
       f.input :firmware_image, as: :file, hint: firmware_build.firmware_image.url
-      li link_to 'Remove Image', remove_image_admin_firmware_build_path(firmware_build),
-          method: :put if firmware_build.firmware_image?
     end
 
     f.actions
-  end
-
-  member_action :remove_image, method: :put do
-    resource.remove_firmware_image!
-    resource.save
-    redirect_to admin_firmware_build_path(resource)
   end
 
 end

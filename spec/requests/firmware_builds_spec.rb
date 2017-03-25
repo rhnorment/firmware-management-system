@@ -6,10 +6,10 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
   let!(:firmware_build_2) { FirmwareBuild.create(
       firmware_build_attributes(firmware_image: File.new("#{Rails.root}/spec/support/fixtures/profile2.bin"))) }
 
-  let(:firmware_build_id)       { FirmwareBuild.first.id }
+  let(:firmware_build_id) { FirmwareBuild.first.id }
 
   describe 'GET /firmware_builds' do
-    before { get '/firmware_builds' }
+    before { get '/v1/firmware_builds' }
 
     it 'returns firmware_builds' do
       expect(json).not_to be_empty
@@ -23,7 +23,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
 
   describe 'GET /firmware_builds/:id' do
 
-    before { get "/firmware_builds/#{firmware_build_id}" }
+    before { get "/v1/firmware_builds/#{firmware_build_id}" }
 
     context 'when the record exists' do
       it 'returns the firmware_build' do

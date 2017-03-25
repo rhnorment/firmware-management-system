@@ -4,7 +4,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
 
   let!(:firmware_build_1) { FirmwareBuild.create(firmware_build_attributes) }
   let!(:firmware_build_2) { FirmwareBuild.create(
-      firmware_build_attributes(firmware_image: File.new("#{Rails.root}/spec/support/fixtures/profile2.jpg"))) }
+      firmware_build_attributes(firmware_image: File.new("#{Rails.root}/spec/support/fixtures/profile2.bin"))) }
 
   let(:firmware_build_id)       { FirmwareBuild.first.id }
 

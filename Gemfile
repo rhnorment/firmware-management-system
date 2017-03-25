@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'activeadmin', github: 'activeadmin'
+gem 'carrierwave', '~> 1.0'
 gem 'devise'
 gem 'rails', '~> 5.0.2'
 
@@ -19,15 +20,14 @@ end
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'faker'
   gem 'rspec-rails'
   gem 'sqlite3'
 end
 
 group :test do
   gem 'database_cleaner'
-  gem 'faker'
   gem 'shoulda-matchers'
-
 end
 
 group :staging, :production do

@@ -4,8 +4,7 @@ class CreateFirmwareBuilds < ActiveRecord::Migration[5.0]
       t.date :release_date
       t.integer :hardware_revision
       t.integer :software_revision
-      t.string  :firmware_image_file_name
-      t.binary  :firmware_image, limit: 10.megabyte
+      t.string  :firmware_image
 
       t.timestamps
     end

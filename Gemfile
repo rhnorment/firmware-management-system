@@ -10,6 +10,7 @@ end
 gem 'activeadmin', github: 'activeadmin'
 gem 'carrierwave', '~> 1.0'
 gem 'devise'
+gem 'rack-attack'
 gem 'rails', '~> 5.0.2'
 
 group :development do

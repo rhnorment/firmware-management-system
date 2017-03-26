@@ -22,6 +22,17 @@ class FirmwareBuild < ApplicationRecord
 
   validate          :release_date_not_in_past
 
+  after_destroy     :expire_firmware_build_all_cache
+  after_save        :expire_firmware_build_all_cache
+
+  def self.all_cached
+    Rails.cache.fetch('FirmwareBuild.all') { all }
+  end
+
+  def expire_firmware_build_all_cache
+    Rails.cache.delete('FirmwareBuild.all')
+  end
+
   def release_date_not_in_past
     errors.add(:release_date, 'cannot be in past') if release_date.present? && release_date < Date.today
   end

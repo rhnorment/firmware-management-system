@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   namespace :v1 do
-    resources :firmware_builds, only: [:index, :show]
+    resources :firmware_builds do
+      get 'index',  on: :collection
+      get 'show',   on: :member
+      get 'latest', on: :collection
+    end
   end
 
 end

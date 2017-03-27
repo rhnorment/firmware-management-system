@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe 'FirmwareBuilds API', type: :request do
 
-  let!(:firmware_build_1) { FirmwareBuild.create(firmware_build_attributes) }
-  let!(:firmware_build_2) { FirmwareBuild.create(
-      firmware_build_attributes(firmware_image: File.new("#{Rails.root}/spec/support/fixtures/profile2.bin"))) }
+  let!(:build_1)    { FirmwareBuild.create(firmware_build_attributes) }
+  let!(:build_2)    { FirmwareBuild.create(firmware_build_attributes(software_revision: 1.0)) }
 
-  let(:firmware_build_id) { FirmwareBuild.first.id }
+  let(:build_id)    { FirmwareBuild.first.id }
+  let(:latest_id)   { FirmwareBuild.latest.id }
 
   describe 'GET /firmware_builds' do
     before { get '/v1/firmware_builds' }
@@ -23,12 +23,12 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
 
   describe 'GET /firmware_builds/:id' do
 
-    before { get "/v1/firmware_builds/#{firmware_build_id}" }
+    before { get "/v1/firmware_builds/#{build_id}" }
 
     context 'when the record exists' do
       it 'returns the firmware_build' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(firmware_build_id)
+        expect(json['id']).to eq(build_id)
       end
 
       it 'returns the status code 200' do
@@ -37,7 +37,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:firmware_build_id) { 100 }
+      let(:build_id) { 100 }
 
       it 'returns the status code 404' do
         expect(response).to have_http_status(404)
@@ -47,6 +47,20 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
         expect(response.body).to match(/Couldn't find FirmwareBuild/)
       end
     end
+  end
+
+  describe 'GET /firmware_builds/latest' do
+    before { get "/v1/firmware_builds/latest" }
+
+    it 'returns firmware_build' do
+      expect(json).not_to be_empty
+      expect(json['id']).to eq(latest_id)
+    end
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
+    end
+
   end
 
 end

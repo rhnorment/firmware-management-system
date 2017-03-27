@@ -13,12 +13,15 @@
 
 class FirmwareBuild < ApplicationRecord
 
-  mount_uploader    :firmware_image,    FirmwareImageUploader
+  mount_uploader    :image_a,           FirmwareImageUploader
+  mount_uploader    :image_b,           FirmwareImageUploader
 
   validates         :release_date,      presence: true
   validates         :hardware_revision, presence: true
-  validates         :software_revision, presence: true
-  validates         :firmware_image,    presence: true
+  validates         :image_a,           presence: true
+  validates         :image_b,           presence: true
+  validates         :software_revision, uniqueness: { scope: :hardware_revision, case_sensitive: false }
+
 
   validate          :release_date_not_in_past
 
@@ -31,6 +34,10 @@ class FirmwareBuild < ApplicationRecord
 
   def expire_firmware_build_all_cache
     Rails.cache.delete('FirmwareBuild.all')
+  end
+
+  def self.latest
+    order(software_revision: :desc).first
   end
 
   def release_date_not_in_past

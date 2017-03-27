@@ -6,6 +6,11 @@ module V1
       json_response(firmware_builds)
     end
 
+    def latest
+      firmware_build = FirmwareBuild.latest
+      json_response(firmware_build)
+    end
+
     def show
       firmware_build = FirmwareBuild.find(params[:id])
       json_response(firmware_build)

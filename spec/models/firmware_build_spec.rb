@@ -19,7 +19,8 @@ RSpec.describe FirmwareBuild, type: :model do
   it { should have_db_column(:release_date).of_type(:date) }
   it { should have_db_column(:hardware_revision).of_type(:integer) }
   it { should have_db_column(:software_revision).of_type(:integer) }
-  it { should have_db_column(:firmware_image).of_type(:string) }
+  it { should have_db_column(:image_a).of_type(:string) }
+  it { should have_db_column(:image_b).of_type(:string) }
 
   it { should have_db_column(:created_at).of_type(:datetime) }
   it { should have_db_column(:updated_at).of_type(:datetime) }
@@ -50,7 +51,18 @@ RSpec.describe FirmwareBuild, type: :model do
 
   it { should validate_presence_of(:release_date) }
   it { should validate_presence_of(:hardware_revision) }
-  it { should validate_presence_of(:software_revision) }
-  it { should validate_presence_of(:firmware_image) }
+  it { should validate_presence_of(:image_a) }
+  it { should validate_presence_of(:image_b) }
+
+  it { should validate_uniqueness_of(:software_revision).scoped_to(:hardware_revision).case_insensitive }
+
+  describe '.latest' do
+    let!(:build_1) { FirmwareBuild.create(firmware_build_attributes) }
+    let!(:build_2) { FirmwareBuild.create(firmware_build_attributes(software_revision: 1.0)) }
+
+    it 'should returm the latest software revision, not the most recent' do
+      expect(FirmwareBuild.latest).to eq(build_1)
+    end
+  end
 
 end

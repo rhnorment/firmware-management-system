@@ -20,28 +20,42 @@ ActiveAdmin.register FirmwareBuild do
   permit_params :release_date,
                 :hardware_revision,
                 :software_revision,
-                :firmware_image
+                :image_a,
+                :image_b
 
   index do
     selectable_column
     column  :release_date
     column  :hardware_revision
     column  :software_revision
-    column  :firmware_image
 
     actions
   end
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
+
     f.inputs do
       f.input :release_date, as: :datepicker
       f.input :hardware_revision
       f.input :software_revision
-      f.input :firmware_image, as: :file, hint: firmware_build.firmware_image.url
+      f.input :image_a, as: :file, hint: firmware_build.image_a.url
+      f.input :image_b, as: :file, hint: firmware_build.image_b.url
     end
 
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row :release_date
+      row :hardware_revision
+      row :software_revision
+      row('Image A') { |build| build.image_a.url }
+      row('Image B') { |build| build.image_b.url }
+    end
+
+    active_admin_comments
   end
 
 end

@@ -10,8 +10,7 @@ ActiveAdmin.register_page "Dashboard" do
           table_for FirmwareBuild.order(release_date: :desc).limit(10).each do |build|
             column  :release_date
             column  :hardware_revision
-            column  :software_revision
-            column('Firmware Image') { |build| link_to build.firmware_image, admin_firmware_build_path(build) }
+            column('Software Revision') { |build| link_to build.software_revision, admin_firmware_build_path(build) }
           end
         end
       end

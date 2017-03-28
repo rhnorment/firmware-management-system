@@ -25,19 +25,19 @@ class FirmwareBuild < ApplicationRecord
 
   validate          :release_date_not_in_past
 
-  after_destroy     :expire_firmware_build_all_cache
-  after_save        :expire_firmware_build_all_cache
-
-  def self.all_cached
-    Rails.cache.fetch('FirmwareBuild.all') { all }
-  end
-
-  def expire_firmware_build_all_cache
-    Rails.cache.delete('FirmwareBuild.all')
-  end
+  after_destroy     :expire_firmware_build_latest_cache
+  after_save        :expire_firmware_build_latest_cache
 
   def self.latest
     order(software_revision: :desc).first
+  end
+
+  def self.latest_cached
+    Rails.cache.fetch('FirmwareBuild.latest') { order(software_revision: :desc).first }
+  end
+
+  def expire_firmware_build_latest_cache
+    Rails.cache.delete('FirmwareBuild.latest')
   end
 
   def release_date_not_in_past

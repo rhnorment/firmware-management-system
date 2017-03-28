@@ -50,7 +50,7 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
   end
 
   describe 'GET /firmware_builds/latest' do
-    before { get "/v1/firmware_builds/latest" }
+    before { get '/v1/firmware_builds/latest' }
 
     it 'returns firmware_build' do
       expect(json).not_to be_empty

@@ -22,7 +22,6 @@ class FirmwareBuild < ApplicationRecord
   validates         :image_b,           presence: true
   validates         :software_revision, uniqueness: { scope: :hardware_revision, case_sensitive: false }
 
-
   validate          :release_date_not_in_past
 
   after_destroy     :expire_firmware_build_latest_cache

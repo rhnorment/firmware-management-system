@@ -1,6 +1,7 @@
 module V1
 
   class FirmwareBuildsController < ApplicationController
+
     def index
       firmware_builds = FirmwareBuild.all
       json_response(firmware_builds)

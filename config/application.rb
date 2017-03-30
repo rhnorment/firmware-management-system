@@ -24,6 +24,8 @@ module FirmwareManagementSystem
 
     config.api_only = true
 
+    config.autoload_paths << Rails.root.join('lib')
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Session::CookieStore

@@ -22,8 +22,6 @@ class FirmwareBuild < ApplicationRecord
   validates         :image_b,           presence: true
   validates         :software_revision, uniqueness: { scope: :hardware_revision, case_sensitive: false }
 
-  validate          :release_date_not_in_past
-
   after_destroy     :expire_firmware_build_latest_cache
   after_save        :expire_firmware_build_latest_cache
 
@@ -37,10 +35,6 @@ class FirmwareBuild < ApplicationRecord
 
   def expire_firmware_build_latest_cache
     Rails.cache.delete('FirmwareBuild.latest')
-  end
-
-  def release_date_not_in_past
-    errors.add(:release_date, 'cannot be in past') if release_date.present? && release_date < Date.today
   end
 
 end

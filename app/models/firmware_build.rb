@@ -6,9 +6,10 @@
 #  release_date      :date
 #  hardware_revision :integer
 #  software_revision :integer
-#  firmware_image    :string
+#  image_a           :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  image_b           :string
 #
 
 class FirmwareBuild < ApplicationRecord

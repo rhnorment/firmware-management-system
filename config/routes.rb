@@ -5,9 +5,10 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :firmware_builds do
-      get 'index',  on: :collection
-      get 'show',   on: :member
-      get 'latest', on: :collection
+      get 'index',                  on: :collection
+      get 'show',                   on: :member
+      get 'latest',                 on: :collection
+      get 'download_image',         on: :member
     end
   end
 

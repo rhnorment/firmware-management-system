@@ -7,9 +7,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails'
+
 gem 'activeadmin', github: 'activeadmin'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave'
 gem 'devise'
+gem 'fog-aws'
 gem 'rack-attack'
 gem 'rails', '~> 5.0.2'
 

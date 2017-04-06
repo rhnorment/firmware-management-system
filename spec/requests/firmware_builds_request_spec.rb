@@ -62,18 +62,4 @@ RSpec.describe 'FirmwareBuilds API', type: :request do
     end
   end
 
-  describe 'Get /firmware_builds/:id/download_image' do
-    before { get '/v1/firmware_builds/' + build_id.to_s + '/download_image' + '?image=image_a' }
-
-    it 'downloads the correct firmware image' do
-      expect(controller.headers['Content-Transfer-Encoding']).to eq('binary')
-      expect(controller.headers['Content-Disposition']).to eq('attachment; filename="profile1.bin"')
-      expect(controller.headers['Content-Disposition']).to_not eq('attachment; filename="profile2.bin"')
-    end
-
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
-    end
-  end
-
 end

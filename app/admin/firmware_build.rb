@@ -6,15 +6,19 @@
 #  release_date      :date
 #  hardware_revision :integer
 #  software_revision :integer
-#  image_a           :string
+#  image_a           :binary
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  image_b           :string
+#  image_b           :binary
+#  image_a_filename  :string
+#  image_b_filename  :string
 #
 
 ActiveAdmin.register FirmwareBuild do
 
   menu priority: 2
+
+  config.filters = false
 
   config.sort_order = 'release_date_desc'
 
@@ -29,6 +33,8 @@ ActiveAdmin.register FirmwareBuild do
     column  :release_date
     column  :hardware_revision
     column  :software_revision
+    column('Image A') { |build| build.image_a.url }
+    column('Image B') { |build| build.image_b.url }
 
     actions
   end
@@ -36,7 +42,7 @@ ActiveAdmin.register FirmwareBuild do
   form do |f|
     f.semantic_errors *f.object.errors.keys
 
-    f.inputs do
+    f.inputs multipart: true do
       f.input :release_date, as: :datepicker
       f.input :hardware_revision
       f.input :software_revision

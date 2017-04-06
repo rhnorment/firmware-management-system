@@ -10,8 +10,6 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  image_b           :binary
-#  image_a_filename  :string
-#  image_b_filename  :string
 #
 
 ActiveAdmin.register FirmwareBuild do

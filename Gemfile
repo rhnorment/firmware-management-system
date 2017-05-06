@@ -35,6 +35,7 @@ group :test do
 end
 
 group :staging, :production do
+  gem 'newrelic_rpm'
   gem 'pg'
   gem 'puma', '~> 3.0'
   gem 'rack-timeout'

@@ -27,14 +27,39 @@ RSpec.describe 'Mobile Detect', type: :request do
       expect(env[x_mobile]).to eql('iPad')
     end
 
-    it 'should detect UAprof device'
+    it 'should not detect spurious profile header match' do
+      env = test_env({ 'HTTP_X_PROFILE_FOO' => 'bar' })
+      @rack.call(env)
+      expect(env.key?(x_mobile)).to be_falsey
+    end
 
-    it 'should not detect spurious profile header match'
+    it 'should detect wap in Accept header' do
+      env = test_env({ 'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,*/*;q=0.5' })
+      @rack.call(env)
+      expect(env[x_mobile]).to eql('true')
 
-    it 'should detect wap in Accept header'
+      env = test_env({ 'HTTP_ACCEPT' => 'application/vnd.wap.wmlscriptc;q=0.7,text/vnd.wap.wml;q=0.7,*/*;q=0.5' })
+      @rack.call(env)
+      expect(env[x_mobile]).to eql('true')
+    end
 
-    it 'should detect additional devices in catchall'
+    it 'should detect additional devices in catchall' do
+      env = test_env({ 'HTTP_USER_AGENT' => blackberry })
+      @rack.call(env)
+      expect(env[x_mobile]).to eql('true')
 
+      env = test_env({ 'HTTP_USER_AGENT' => samsung })
+      @rack.call(env)
+      expect(env[x_mobile]).to eql('true')
+
+      env = test_env({ 'HTTP_USER_AGENT' => webos })
+      @rack.call(env)
+      expect(env[x_mobile]).to eql('true')
+
+      env = test_env({ 'HTTP_USER_AGENT' => 'opera' })
+      @rack.call(env)
+      expect(env.key?(x_mobile)).to be_falsey
+    end
   end
 
 end
@@ -75,7 +100,11 @@ end
 
 
 def test_app()
-  Class.new { def call(app); true; end }.new
+  Class.new {
+    def call(app)
+      true
+    end
+  }.new
 end
 
 def test_env(overwrite = {})

@@ -17,7 +17,6 @@ module V1
       json_response(firmware_build)
     end
   end
-
 end
 
 

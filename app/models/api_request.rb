@@ -3,27 +3,28 @@
 # Table name: api_requests
 #
 #  id                   :integer          not null, primary key
-#  server_name          :string
-#  path_info            :string
-#  remote_host          :string
-#  http_accept_encoding :string
-#  http_user_agent      :string
-#  server_protocol      :string
-#  http_cache_control   :string
-#  http_accept_language :string
-#  http_host            :string
-#  remote_address       :string
-#  http_keep_alive      :string
-#  http_referrer        :string
-#  http_cookie          :string
-#  http_accept_charset  :string
-#  request_uri          :string
 #  gateway_interface    :string
-#  query_string         :string
-#  remote_user          :string
 #  http_accept          :string
-#  request_method       :string
+#  http_accept_charset  :string
+#  http_accept_encoding :string
+#  http_accept_language :string
+#  http_cache_control   :string
 #  http_connection      :string
+#  http_cookie          :string
+#  http_host            :string
+#  http_keep_alive      :integer
+#  http_referrer        :string
+#  http_user_agent      :string
+#  new                  :boolean
+#  path_info            :string
+#  query_string         :string
+#  remote_address       :string
+#  remote_host          :string
+#  remote_user          :string
+#  request_method       :string
+#  request_uri          :string
+#  server_name          :string
+#  server_protocol      :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

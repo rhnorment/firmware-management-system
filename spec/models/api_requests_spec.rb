@@ -64,4 +64,29 @@ RSpec.describe APIRequest, type: :model do
   it 'should be valid with valid attributes' do
     expect(APIRequest.new(api_request)).to be_valid
   end
+
+  describe 'class methods' do
+    describe '.record_api_request' do
+      it 'should save the record and increment the counter' do
+        APIRequest.create(api_request)
+        expect(APIRequest.count).to eql(1)
+      end
+    end
+
+    describe '.is_unique?' do
+      it 'should set request.new te TRUE if it is coming from a unique IP address' do
+        APIRequest.create(api_request)
+        request2 = APIRequest.create(api_request(remote_address: '127.0.0.2'))
+
+        expect(request2.is_unique?('127.0.0.2')).to be_truthy
+      end
+
+      it 'should set request.new to FALSE if it is coming from a non-unique IP address' do
+        APIRequest.create(api_request)
+        request2 = APIRequest.create(api_request)
+
+        expect(request2.is_unique?('127.0.0.1')).to be_falsey
+      end
+    end
+  end
 end

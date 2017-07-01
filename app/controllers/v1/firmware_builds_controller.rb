@@ -5,6 +5,8 @@ module V1
     def index
       firmware_builds = FirmwareBuild.all
       json_response(firmware_builds)
+
+      APIRequest.record_api_request(request.env)
     end
 
     def latest

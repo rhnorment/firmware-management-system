@@ -76,7 +76,7 @@ RSpec.describe APIRequest, type: :model do
     describe '.is_unique?' do
       it 'should set request.new te TRUE if it is coming from a unique IP address' do
         APIRequest.create(api_request)
-        request2 = APIRequest.create(api_request(remote_address: '127.0.0.2'))
+        request2 = APIRequest.new(api_request(remote_address: '127.0.0.2'))
 
         expect(request2.is_unique?('127.0.0.2')).to be_truthy
       end

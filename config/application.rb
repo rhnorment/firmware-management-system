@@ -11,7 +11,6 @@ require "action_view/railtie"
 require "action_cable/engine"
 
 require 'fog/aws'
-require 'rack/mobile-detect'
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -34,6 +33,5 @@ module FirmwareManagementSystem
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use Rack::Attack
     config.middleware.use Rack::MethodOverride
-    config.middleware.use Rack::MobileDetect
   end
 end

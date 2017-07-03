@@ -171,8 +171,6 @@ GEM
     rack (2.0.1)
     rack-attack (5.0.1)
       rack
-    rack-mobile-detect (0.4.0)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.4.2)
@@ -283,7 +281,6 @@ DEPENDENCIES
   pg
   puma (~> 3.0)
   rack-attack
-  rack-mobile-detect
   rack-timeout
   rails (~> 5.0.2)
   rails_12factor

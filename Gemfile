@@ -14,7 +14,6 @@ gem 'carrierwave'
 gem 'devise'
 gem 'fog-aws'
 gem 'rack-attack'
-gem 'rack-mobile-detect'
 gem 'rails', '~> 5.0.2'
 
 group :development do

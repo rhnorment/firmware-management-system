@@ -45,11 +45,11 @@ class APIRequest < ApplicationRecord
     request.http_host = env['HTTP_HOST']
     request.http_keep_alive = env['HTTP_KEEP_ALIVE']
     request.http_referrer = env['HTTP_REFERRER']
-    request.http_user_agent = env['HTTP_USER-AGENT']
-    request.new = request.is_unique?(env['REMOTE_ADDRESS'])
+    request.http_user_agent = env['HTTP_USER_AGENT']
+    request.new = request.is_unique?(env['REMOTE_ADDR'])
     request.path_info = env['PATH_INFO']
     request.query_string = env['QUERY_STRING']
-    request.remote_address = env['REMOTE_ADDRESS']
+    request.remote_address = env['REMOTE_ADDR']
     request.remote_host = env['REMOTE_HOST']
     request.remote_user = env['REMOTE_USER']
     request.request_method = env['REQUEST_METHOD']
@@ -61,7 +61,7 @@ class APIRequest < ApplicationRecord
   end
 
   def is_unique?(remote_address)
-    similar_addresses = APIRequest.where(remote_address: remote_address).pluck(:remote_address).uniq
+    similar_addresses = APIRequest.pluck(:remote_address).uniq
     !similar_addresses.include?(remote_address)
   end
 

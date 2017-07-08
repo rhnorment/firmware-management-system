@@ -10,6 +10,7 @@ end
 gem 'dotenv-rails'
 
 gem 'activeadmin', github: 'activeadmin'
+gem 'agent_orange'
 gem 'carrierwave'
 gem 'devise'
 gem 'fog-aws'

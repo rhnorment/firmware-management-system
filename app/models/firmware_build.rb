@@ -37,5 +37,4 @@ class FirmwareBuild < ApplicationRecord
   def expire_firmware_build_latest_cache
     Rails.cache.delete('FirmwareBuild.latest')
   end
-
 end

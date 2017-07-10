@@ -63,11 +63,16 @@ ActiveAdmin.register APIRequest do
   end
 
   sidebar 'User Agent Attributes', only: :show do
+    ua = AgentOrange::UserAgent.new(:http_user_agent.to_s)
+    device = ua.device
+    platform = ua.device.platform
+    os = ua.device.operating_system
+
     attributes_table do
-      row   :server_name
+      row('Device Type')      { device.type }
+      row('Platform')         { platform.type }
+      row('Platform Version') { platform.version }
+      row('OS Version')       { os.version }
     end
   end
-
-
-
 end

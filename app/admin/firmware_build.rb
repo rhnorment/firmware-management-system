@@ -28,6 +28,7 @@ ActiveAdmin.register FirmwareBuild do
 
   index do
     selectable_column
+
     column  :release_date
     column  :hardware_revision
     column  :software_revision

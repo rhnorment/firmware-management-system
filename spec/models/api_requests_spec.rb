@@ -32,6 +32,22 @@
 require 'rails_helper'
 
 RSpec.describe APIRequest, type: :model do
+  let(:resource_class)  { 'APIRequest' }
+  let(:all_resources)   { ActiveAdmin.application.namespaces[:admin].resources }
+  let(:resource)        { all_resources[resource_class] }
+
+  it 'has a valid resource name' do
+    expect(resource.resource_name).to eq('APIRequest')
+  end
+
+  it 'should display in the menu bar' do
+    expect(resource).to be_include_in_menu
+  end
+
+  it 'has the default set of CRUD actions available to it' do
+    expect(resource.defined_actions).to include(:index, :show)
+  end
+
   describe 'ActiveRecord associations' do
     it { should have_db_column(:gateway_interface).of_type(:string) }
     it { should have_db_column(:http_accept).of_type(:string) }
@@ -58,7 +74,6 @@ RSpec.describe APIRequest, type: :model do
 
     it { should have_db_index(:new) }
     it { should have_db_index(:remote_address) }
-
   end
 
   it 'should be valid with valid attributes' do

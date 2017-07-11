@@ -62,7 +62,9 @@ RSpec.describe APIRequest, type: :model do
     it { should have_db_column(:http_referrer).of_type(:string) }
     it { should have_db_column(:http_user_agent).of_type(:string) }
     it { should have_db_column(:new).of_type(:boolean) }
+    it { should have_db_column(:os_version).of_type(:string) }
     it { should have_db_column(:path_info).of_type(:string) }
+    it { should have_db_column(:platform_type).of_type(:string) }
     it { should have_db_column(:query_string).of_type(:string) }
     it { should have_db_column(:remote_address).of_type(:string) }
     it { should have_db_column(:remote_host).of_type(:string) }
@@ -73,6 +75,7 @@ RSpec.describe APIRequest, type: :model do
     it { should have_db_column(:server_protocol).of_type(:string) }
 
     it { should have_db_index(:new) }
+    it { should have_db_index(:platform_type) }
     it { should have_db_index(:remote_address) }
   end
 
@@ -101,6 +104,24 @@ RSpec.describe APIRequest, type: :model do
         request2 = APIRequest.create(api_request)
 
         expect(request2.is_unique?('127.0.0.1')).to be_falsey
+      end
+    end
+
+    describe '.set_os_version' do
+      it 'should set the os version by parsing the user agent string' do
+        string = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B145 Safari/8536.25'
+        request = APIRequest.new(api_request(http_user_agent: string))
+
+        expect(request.set_os_version(string)).to eql('Apple iOS 6.1.1')
+      end
+    end
+
+    describe '.set_platform' do
+      it 'should set the platform by parsing the user agent string' do
+        string = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B145 Safari/8536.25'
+        request = APIRequest.new(api_request(http_user_agent: string))
+
+        expect(request.set_platform(string)).to eql('iPhone')
       end
     end
   end

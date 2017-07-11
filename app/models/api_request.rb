@@ -16,7 +16,9 @@
 #  http_referrer        :string           default("")
 #  http_user_agent      :string           default("")
 #  new                  :boolean          default(FALSE)
+#  os_version           :string           default("")
 #  path_info            :string           default("")
+#  platform_type        :string           default("")
 #  query_string         :string           default("")
 #  remote_address       :string           default("")
 #  remote_host          :string           default("")
@@ -49,7 +51,9 @@ class APIRequest < ApplicationRecord
     request.http_referrer = env['HTTP_REFERRER']
     request.http_user_agent = env['HTTP_USER_AGENT']
     request.new = request.is_unique?(env['REMOTE_ADDR'])
+    request.os_version = request.set_os_version(env['HTTP_USER_AGENT'])
     request.path_info = env['PATH_INFO']
+    request.platform_type = request.set_platform(env['HTTP_USER_AGENT'])
     request.query_string = env['QUERY_STRING']
     request.remote_address = env['REMOTE_ADDR']
     request.remote_host = env['REMOTE_HOST']
@@ -65,6 +69,14 @@ class APIRequest < ApplicationRecord
   def is_unique?(remote_address)
     similar_addresses = APIRequest.pluck(:remote_address).uniq
     !similar_addresses.include?(remote_address)
+  end
+
+  def set_os_version(user_agent_string)
+    AgentOrange::UserAgent.new(user_agent_string).device.operating_system.to_s
+  end
+
+  def set_platform(user_agent_string)
+    AgentOrange::UserAgent.new(user_agent_string).device.platform.version.major
   end
 
 end

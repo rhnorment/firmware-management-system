@@ -16,7 +16,9 @@
 #  http_referrer        :string           default("")
 #  http_user_agent      :string           default("")
 #  new                  :boolean          default(FALSE)
+#  os_version           :string           default("")
 #  path_info            :string           default("")
+#  platform_type        :string           default("")
 #  query_string         :string           default("")
 #  remote_address       :string           default("")
 #  remote_host          :string           default("")
@@ -69,7 +71,7 @@ ActiveAdmin.register APIRequest do
     os = ua.device.operating_system
 
     attributes_table do
-      row('Device Type')      { device.type }
+      row('Device Type')      { device.type.to_s }
       row('Platform')         { platform.type }
       row('Platform Version') { platform.version }
       row('OS Version')       { os.version }

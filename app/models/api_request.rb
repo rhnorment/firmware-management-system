@@ -51,9 +51,9 @@ class APIRequest < ApplicationRecord
     request.http_referrer = env['HTTP_REFERRER']
     request.http_user_agent = env['HTTP_USER_AGENT']
     request.new = request.is_unique?(env['REMOTE_ADDR'])
-    request.os_version = request.set_os_version(env['HTTP_USER_AGENT'])
+    request.os_version = request.os_version(env['HTTP_USER_AGENT'])
     request.path_info = env['PATH_INFO']
-    request.platform_type = request.set_platform(env['HTTP_USER_AGENT'])
+    request.platform_type = request.platform(env['HTTP_USER_AGENT'])
     request.query_string = env['QUERY_STRING']
     request.remote_address = env['REMOTE_ADDR']
     request.remote_host = env['REMOTE_HOST']
@@ -71,11 +71,15 @@ class APIRequest < ApplicationRecord
     !similar_addresses.include?(remote_address)
   end
 
-  def set_os_version(user_agent_string)
+  def os_version(user_agent_string)
+    return unless user_agent_string
+
     AgentOrange::UserAgent.new(user_agent_string).device.operating_system.to_s
   end
 
-  def set_platform(user_agent_string)
+  def platform(user_agent_string)
+    return unless user_agent_string
+
     AgentOrange::UserAgent.new(user_agent_string).device.platform.version.major
   end
 

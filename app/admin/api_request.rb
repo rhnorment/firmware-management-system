@@ -48,6 +48,7 @@ ActiveAdmin.register APIRequest do
     selectable_column
     id_column
 
+    column  :platform_type
     column  :remote_address
     column  :http_user_agent
     column('Unique?') { |request| status_tag(request.new) }
@@ -68,7 +69,7 @@ ActiveAdmin.register APIRequest do
   sidebar 'User Agent Attributes', only: :show do
     attributes_table do
       row   :platform_type
-      row   :os_version
+      row('OS Version') { |request| request.os_version }
     end
   end
 end

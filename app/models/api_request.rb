@@ -35,13 +35,16 @@ class APIRequest < ApplicationRecord
 
   scope :unique, -> { where(new: true) }
 
-  def self.record_api_request(env)
+  def self.record_api_request(req)
+    env = req.env
+    ip = req.remote_ip
+
     request = APIRequest.new
 
+    # set http environment variables
     request.gateway_interface = env['GATEWAY_INTERFACE']
     request.http_accept = env['HTTP_ACCEPT']
     request.http_accept_charset = env['HTTP_ACCEPT_CHARSET']
-    request.http_accept_encoding = env['HTTP_ACCEPT_ENCODING']
     request.http_accept_language = env['HTTP_ACCEPT_LANGUAGE']
     request.http_cache_control = env['HTTP_CACHE_CONTROL']
     request.http_connection = env['HTTP_CONNECTION']
@@ -50,12 +53,12 @@ class APIRequest < ApplicationRecord
     request.http_keep_alive = env['HTTP_KEEP_ALIVE']
     request.http_referrer = env['HTTP_REFERRER']
     request.http_user_agent = env['HTTP_USER_AGENT']
-    request.new = request.is_unique?(env['REMOTE_ADDR'])
+    request.new = request.is_unique?(ip)
     request.os_version = request.set_os_version(env['HTTP_USER_AGENT'])
     request.path_info = env['PATH_INFO']
-    request.platform_type = request.set_platform(env['HTTP_USER_AGENT'])
+    request.platform_type = request.set_platform_type(env['HTTP_USER_AGENT'])
     request.query_string = env['QUERY_STRING']
-    request.remote_address = env['REMOTE_ADDR']
+    request.remote_address = ip
     request.remote_host = env['REMOTE_HOST']
     request.remote_user = env['REMOTE_USER']
     request.request_method = env['REQUEST_METHOD']
@@ -75,10 +78,10 @@ class APIRequest < ApplicationRecord
     AgentOrange::UserAgent.new(user_agent_string).device.operating_system.to_s if user_agent_string
   end
 
-  def set_platform(user_agent_string)
-    return unless user_agent_string
-
+  def set_platform_type(user_agent_string)
     AgentOrange::UserAgent.new(user_agent_string).device.platform.name if user_agent_string
   end
+
+
 
 end

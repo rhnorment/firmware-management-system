@@ -69,7 +69,7 @@ ActiveAdmin.register APIRequest do
   sidebar 'User Agent Attributes', only: :show do
     attributes_table do
       row   :platform_type
-      row('OS Version') { |request| request.os_version }
+      row   :os_version
     end
   end
 end

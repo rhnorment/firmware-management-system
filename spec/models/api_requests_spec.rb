@@ -116,19 +116,19 @@ RSpec.describe APIRequest, type: :model do
       end
     end
 
-    describe '.set_platform' do
+    describe '.set_platform_type' do
       it 'should set the platform by parsing the user agent string' do
         string = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B145 Safari/8536.25'
         request = APIRequest.new(api_request(http_user_agent: string))
 
-        expect(request.set_platform(string)).to eql('Apple')
+        expect(request.set_platform_type(string)).to eql('Apple')
       end
 
       it 'should recognize a computer platform' do
         string = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'
         request = APIRequest.new(api_request(http_user_agent: string))
 
-        expect(request.set_platform(string)).to eql('Macintosh')
+        expect(request.set_platform_type(string)).to eql('Macintosh')
       end
     end
   end

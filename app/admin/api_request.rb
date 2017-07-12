@@ -34,13 +34,14 @@
 ActiveAdmin.register APIRequest do
   actions :index, :show
 
-  menu priority: 3
-
   config.sort_order = 'created_at_desc'
+
+  menu priority: 3
 
   scope :all, default: true
   scope :unique
 
+  filter :platform_type
   filter :remote_address
 
   index do
@@ -65,16 +66,9 @@ ActiveAdmin.register APIRequest do
   end
 
   sidebar 'User Agent Attributes', only: :show do
-    ua = AgentOrange::UserAgent.new(:http_user_agent.to_s)
-    device = ua.device
-    platform = ua.device.platform
-    os = ua.device.operating_system
-
     attributes_table do
-      row('Device Type')      { device.type.to_s }
-      row('Platform')         { platform.type }
-      row('Platform Version') { platform.version }
-      row('OS Version')       { os.version }
+      row   :platform_type
+      row   :os_version
     end
   end
 end

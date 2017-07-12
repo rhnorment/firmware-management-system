@@ -72,15 +72,11 @@ class APIRequest < ApplicationRecord
   end
 
   def os_version(user_agent_string)
-    return unless user_agent_string
-
-    AgentOrange::UserAgent.new(user_agent_string).device.operating_system.to_s
+    AgentOrange::UserAgent.new(user_agent_string).device.operating_system.to_s if user_agent_string
   end
 
   def platform(user_agent_string)
-    return unless user_agent_string
-
-    AgentOrange::UserAgent.new(user_agent_string).device.platform.version.major
+    AgentOrange::UserAgent.new(user_agent_string).device.platform.version.major if user_agent_string
   end
 
 end

@@ -13,6 +13,15 @@ ActiveAdmin.register_page "Dashboard" do
             column('Software Revision') { |build| link_to build.software_revision, admin_firmware_build_path(build) }
           end
         end
+
+        panel 'Rolling 7-day Activity' do
+          table_for APIRequest.order(created_at: :desc).limit(10).each do |build|
+            column  :created_at
+            column  :remote_address
+            column  :platform_type
+            column  :new
+          end
+        end
       end
     end
 

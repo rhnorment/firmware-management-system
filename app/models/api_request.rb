@@ -61,11 +61,14 @@ class APIRequest < ApplicationRecord
     request.http_keep_alive = env['HTTP_KEEP_ALIVE']
     request.http_referrer = env['HTTP_REFERRER']
     request.http_user_agent = env['HTTP_USER_AGENT']
+    request.latitude = location_data['latitude']
+    request.longitude = location_data['longitude']
     request.new = request.is_unique?(ip)
     request.os_version = request.set_os_version(env['HTTP_USER_AGENT'])
     request.path_info = env['PATH_INFO']
     request.platform_type = request.set_platform_type(env['HTTP_USER_AGENT'])
     request.query_string = env['QUERY_STRING']
+    request.region = location_data['region']
     request.remote_address = ip
     request.remote_host = env['REMOTE_HOST']
     request.remote_user = env['REMOTE_USER']

@@ -28,6 +28,7 @@ end
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'faker'
+  gem 'rspec-activemodel-mocks'
   gem 'rspec-rails'
   gem 'sqlite3'
 end

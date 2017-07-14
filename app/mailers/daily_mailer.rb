@@ -1,5 +1,5 @@
 class DailyMailer < ApplicationMailer
-  default from: 'notifications@example.com'
+  default from: 'daily_digest@BTMH-EATON.com'
 
   def daily_email
     mail(to: 'hunt.norment@icloud.com', subject: 'Bluetooth Motion Head Daily Digest')

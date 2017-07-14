@@ -39,3 +39,10 @@ def api_request(overrides = {})
     server_protocol: 'HTTP/1.1',
   }.merge(overrides)
 end
+
+def email_recipient(overrides = {})
+  {
+    name: 'Test User',
+    email: 'test@example.com'
+  }
+end

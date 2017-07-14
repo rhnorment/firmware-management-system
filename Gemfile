@@ -16,6 +16,7 @@ gem 'devise'
 gem 'fog-aws'
 gem 'rack-attack'
 gem 'rails', '~> 5.0.2'
+gem 'sendgrid-ruby'
 
 
 group :development do

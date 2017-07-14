@@ -80,6 +80,8 @@ class APIRequest < ApplicationRecord
     request.server_protocol = env['SERVER_PROTOCOL']
 
     request.save
+
+    DailyMailer.daily_email.deliver_now
   end
 
   def is_unique?(remote_address)

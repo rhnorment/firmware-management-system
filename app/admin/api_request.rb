@@ -49,7 +49,7 @@ ActiveAdmin.register APIRequest do
     id_column
 
     column  :platform_type
-    column  :remote_address
+    column('Locatiom') { |request| request.city + ', ' + request.region }
     column  :http_user_agent
     column('Unique?') { |request| status_tag(request.new) }
   end
@@ -70,6 +70,7 @@ ActiveAdmin.register APIRequest do
     attributes_table do
       row   :platform_type
       row   :os_version
+      row('Location') { |request| request.city + ', ' + request.region }
     end
   end
 end

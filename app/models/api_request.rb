@@ -16,9 +16,7 @@
 #  http_referrer        :string           default("")
 #  http_user_agent      :string           default("")
 #  new                  :boolean          default(FALSE)
-#  os_version           :string           default("")
 #  path_info            :string           default("")
-#  platform_type        :string           default("")
 #  query_string         :string           default("")
 #  remote_address       :string           default("")
 #  remote_host          :string           default("")
@@ -29,6 +27,13 @@
 #  server_protocol      :string           default("")
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  platform_type        :string           default("")
+#  os_version           :string           default("")
+#  city                 :string           default("")
+#  country              :string           default("")
+#  latitude             :decimal(15, 13)
+#  longitude            :decimal(15, 13)
+#  region               :string           default("")
 #
 
 class APIRequest < ApplicationRecord
@@ -38,10 +43,13 @@ class APIRequest < ApplicationRecord
   def self.record_api_request(req)
     env = req.env
     ip = req.remote_ip
+    location_data = IPToEarth.get_location_data(ip)
 
     request = APIRequest.new
 
     # set http environment variables
+    request.city = location_data['city']
+    request.country = location_data['country']
     request.gateway_interface = env['GATEWAY_INTERFACE']
     request.http_accept = env['HTTP_ACCEPT']
     request.http_accept_charset = env['HTTP_ACCEPT_CHARSET']

@@ -18,6 +18,10 @@ RSpec.describe IPToEarth do
     expect(@result['city']).to eql('Chesapeake')
   end
 
+  it 'should return VIRGINA as the region' do
+    expect(@result['region']).to eql('Virginia')
+  end
+
   it 'should return a latitude of 36.81903839111328' do
     expect(@result['latitude']).to eql(36.81903839111328)
   end

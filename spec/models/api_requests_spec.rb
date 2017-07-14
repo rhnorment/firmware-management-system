@@ -49,6 +49,8 @@ RSpec.describe APIRequest, type: :model do
   end
 
   describe 'ActiveRecord associations' do
+    it { should have_db_column(:city).of_type(:string) }
+    it { should have_db_column(:country).of_type(:string) }
     it { should have_db_column(:gateway_interface).of_type(:string) }
     it { should have_db_column(:http_accept).of_type(:string) }
     it { should have_db_column(:http_accept_charset).of_type(:string) }
@@ -61,11 +63,14 @@ RSpec.describe APIRequest, type: :model do
     it { should have_db_column(:http_keep_alive).of_type(:integer) }
     it { should have_db_column(:http_referrer).of_type(:string) }
     it { should have_db_column(:http_user_agent).of_type(:string) }
+    it { should have_db_column(:latitude).of_type(:decimal) }
+    it { should have_db_column(:longitude).of_type(:decimal) }
     it { should have_db_column(:new).of_type(:boolean) }
     it { should have_db_column(:os_version).of_type(:string) }
     it { should have_db_column(:path_info).of_type(:string) }
     it { should have_db_column(:platform_type).of_type(:string) }
     it { should have_db_column(:query_string).of_type(:string) }
+    it { should have_db_column(:region).of_type(:string) }
     it { should have_db_column(:remote_address).of_type(:string) }
     it { should have_db_column(:remote_host).of_type(:string) }
     it { should have_db_column(:remote_user).of_type(:string) }

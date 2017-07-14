@@ -38,6 +38,8 @@
 
 class APIRequest < ApplicationRecord
 
+  scope :recent_7_days, -> { where(created_at: 7.days.ago.midnight..Time.now, new: true) }
+  scope :today, -> { where(created_at: Date.today.beginning_of_day..Time.now) }
   scope :unique, -> { where(new: true) }
 
   def self.record_api_request(req)
@@ -92,7 +94,4 @@ class APIRequest < ApplicationRecord
   def set_platform_type(user_agent_string)
     AgentOrange::UserAgent.new(user_agent_string).device.platform.name if user_agent_string
   end
-
-
-
 end

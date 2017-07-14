@@ -39,6 +39,7 @@ ActiveAdmin.register APIRequest do
   menu priority: 3
 
   scope :all, default: true
+  scope :today
   scope :unique
 
   filter :platform_type

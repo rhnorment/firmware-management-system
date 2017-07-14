@@ -14,16 +14,16 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
 
-        panel 'Rolling 7-day Activity' do
-          table_for APIRequest.order(created_at: :desc).limit(10).each do |build|
-            column  :created_at
+        panel 'Rolling 7-day New Account Activity' do
+          table_for APIRequest.recent_7_days.each do |build|
             column  :remote_address
+            column('Location') { |build| build.city + ', ' + build.region }
             column  :platform_type
-            column  :new
+            column  :os_version
+            column('New') { |build| status_tag(build.new) }
           end
         end
       end
     end
-
   end # content
 end

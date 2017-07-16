@@ -39,8 +39,9 @@
 class APIRequest < ApplicationRecord
 
   scope :recent_7_days, -> { where(created_at: 7.days.ago.midnight..Time.now, new: true) }
-  scope :today, -> { where(created_at: Date.today.beginning_of_day..Time.now) }
+  scope :today, -> { where(created_at: Date.today.beginning_of_day..Time.now, new: true) }
   scope :unique, -> { where(new: true) }
+  scope :yesterday, -> { where(created_at: Date.yesterday.beginning_of_day..Date.yesterday.end_of_day, new: true) }
 
   def self.record_api_request(req)
     env = req.env

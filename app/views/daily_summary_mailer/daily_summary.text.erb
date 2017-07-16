@@ -1,0 +1,10 @@
+Bluetooth Motion Head Daily Summary for <%= @date %>
+
+There were <%= pluralize(@count, 'request', 'requests') %> unique requests yesterday.
+
+<% @requests.each do |request| %>
+    <%= request.cit %>
+    <%= request.region %>
+    <%= request.platform_type %>
+    <%= request.os_version %>
+<% end %>

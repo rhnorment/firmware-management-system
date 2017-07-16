@@ -1,0 +1,14 @@
+<h1>Bluetooth Motion Head Daily Summary for <%= @date %></h1>
+
+<p>
+  There were <%= pluralize(@count, 'request', 'requests') %> unique requests yesterday.
+</p>
+
+<ul>
+  <% @requests.each do |request| %>
+    <li><%= request.city %></li>
+    <li><%= request.region %></li>
+    <li><%= request.platform_type %></li>
+    <li><%= request.os_version %></li>
+  <% end %>
+</ul>

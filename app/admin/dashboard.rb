@@ -24,6 +24,10 @@ ActiveAdmin.register_page "Dashboard" do
             column('New') { |build| status_tag(build.new) }
           end
         end
+
+        panel 'Accounts per US State' do
+          geo_chart APIRequest.where(new: true).select(:region).count, region: 'US'
+        end
       end
     end
   end # content

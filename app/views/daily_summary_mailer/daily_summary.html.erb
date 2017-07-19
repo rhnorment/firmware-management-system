@@ -1,14 +1,21 @@
-<h1>Bluetooth Motion Head Daily Summary for <%= @date %></h1>
+<h3>Bluetooth Motion Head Daily Summary for <%= @date %></h3>
 
 <p>
   There were <%= pluralize(@count, 'request', 'requests') %> unique requests yesterday.
 </p>
 
-<ul>
+<table>
+  <tr>
+    <th>Created At</th>
+    <th>City</th>
+    <th>State</th>
+  </tr>
   <% @requests.each do |request| %>
-    <li><%= request.city %></li>
-    <li><%= request.region %></li>
-    <li><%= request.platform_type %></li>
-    <li><%= request.os_version %></li>
+    <tr>
+      <td><%=h request.created_at %></td>
+      <td><%=h request.city %></td>
+      <td><%=h request.region %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
+

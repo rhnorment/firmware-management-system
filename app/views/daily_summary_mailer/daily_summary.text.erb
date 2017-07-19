@@ -2,9 +2,7 @@ Bluetooth Motion Head Daily Summary for <%= @date %>
 
 There were <%= pluralize(@count, 'request', 'requests') %> unique requests yesterday.
 
+DATE          |       CITY       |     STATE
 <% @requests.each do |request| %>
-    <%= request.cit %>
-    <%= request.region %>
-    <%= request.platform_type %>
-    <%= request.os_version %>
+    <%= request.created_at %>  <%= request.city %>  <%= request.region %>
 <% end %>

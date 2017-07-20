@@ -119,6 +119,8 @@ GEM
     formtastic_i18n (0.6.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    groupdate (3.2.0)
+      activesupport (>= 3)
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
@@ -296,6 +298,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   fog-aws
+  groupdate
   listen (~> 3.0.5)
   newrelic_rpm
   pg

@@ -15,14 +15,7 @@ ActiveAdmin.register_page "Dashboard" do
         end
 
         panel 'Rolling 7-day New Account Activity' do
-          table_for APIRequest.recent_7_days.each do |build|
-            column  :created_at
-            column  :remote_address
-            column('Location') { |build| build.city + ', ' + build.region }
-            column  :platform_type
-            column  :os_version
-            column('New') { |build| status_tag(build.new) }
-          end
+
         end
 
         panel 'Accounts per US State' do

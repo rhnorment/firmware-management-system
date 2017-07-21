@@ -15,11 +15,11 @@ ActiveAdmin.register_page "Dashboard" do
         end
 
         panel 'Rolling 7-day New Account Activity By Day' do
-          column_chart APIRequest.where(new: true).group_by_day(:created_at, last: 7, current: false, format: '%a').count
+          column_chart APIRequest.seven_day_activations
         end
 
         panel 'Accounts per US State' do
-          geo_chart APIRequest.where(new: true).group(:region).count, library: { region: 'US',  resolution: 'provinces' }
+          geo_chart APIRequest.accounts_by_state, library: { region: 'US',  resolution: 'provinces' }
         end
       end
     end

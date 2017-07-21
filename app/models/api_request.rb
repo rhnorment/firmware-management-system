@@ -40,6 +40,7 @@ class APIRequest < ApplicationRecord
 
   scope :accounts_by_state, -> { unique.group(:region).count }
   scope :seven_day_activations, -> { unique.group_by_day(:created_at, last: 7, current: false, format: '%a').count }
+  scope :today, -> { where(created_at: Date.today.beginning_of_day..Time.now) }
   scope :unique, -> { where(new: true) }
   scope :yesterday, -> { where(created_at: Date.yesterday.beginning_of_day..Date.yesterday.end_of_day, new: true) }
 

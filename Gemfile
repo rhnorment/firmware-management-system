@@ -9,7 +9,7 @@ end
 
 gem 'dotenv-rails'
 
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem 'agent_orange'
 gem 'carrierwave'
 gem 'chartkick'
